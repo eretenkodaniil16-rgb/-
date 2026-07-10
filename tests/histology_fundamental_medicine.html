@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Интерактивный тест: фундаментальная медицина и гистология</title>
+  <meta name="description" content="Интерактивный статический тест из 303 вопросов по фундаментальной медицине и гистологии.">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <style>
+    .quiz-toolbar{display:grid;grid-template-columns:1.2fr .8fr auto;gap:12px;align-items:center;margin-bottom:22px}
+    .quiz-toolbar input,.quiz-toolbar select{min-height:46px;border:1px solid var(--line);border-radius:999px;background:rgba(255,253,249,.9);padding:0 16px;color:var(--text);font:inherit}
+    .score-panel{background:rgba(255,253,249,.94);border:1px solid var(--line);border-radius:22px;padding:16px 18px;box-shadow:0 12px 30px rgba(63,35,20,.06);font-weight:900;color:var(--brand2)}
+    .topic-counts{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;padding:0;list-style:none}
+    .topic-counts li{padding:7px 11px;border-radius:999px;background:var(--soft);color:var(--brand2);font-size:13px;font-weight:900}
+    .answer-button{width:100%;text-align:left;border:1px solid rgba(122,70,41,.14);border-radius:16px;background:rgba(255,253,249,.75);padding:12px 14px;font:inherit;color:var(--text);cursor:pointer}
+    .answer-button:hover:not(:disabled){border-color:var(--brand)}
+    .answer-button:disabled{cursor:default}
+    .answer-button.correct-choice{border-color:rgba(47,111,83,.7);background:rgba(47,111,83,.14);font-weight:900}
+    .answer-button.wrong-choice{border-color:rgba(159,45,45,.55);background:rgba(159,45,45,.12)}
+    .result-text{margin:12px 0 0;font-weight:900}
+    .result-text.correct{color:var(--green)}
+    .result-text.wrong{color:#9f2d2d}
+    @media(max-width:720px){.quiz-toolbar{grid-template-columns:1fr}}
+  </style>
+</head>
+<body class="test-page">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="../index.html#top" aria-label="На главную">
+        <span class="logo-mark">ОМ</span>
+        <span class="logo-text"><strong>Открытые материалы</strong><small>для студентов-медиков</small></span>
+      </a>
+      <nav class="main-nav open">
+        <a href="../index.html#materials">Материалы</a>
+        <a href="../index.html#tests">Тесты</a>
+        <a href="../index.html#contacts">Контакты</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="test-hero">
+      <div class="container">
+        <p class="eyebrow">Интерактивная самопроверка</p>
+        <h1>Фундаментальная медицина и гистология</h1>
+        <p class="lead">303 вопроса по 5 темам. Выберите ответ, чтобы увидеть результат; правильный вариант скрыт до выбора.</p>
+        <div class="hero-actions"><a class="button secondary" href="../index.html#tests">Вернуться к списку тестов</a></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <ul class="topic-counts" id="topicCounts" aria-label="Количество вопросов по темам"></ul>
+        <div class="quiz-toolbar">
+          <input id="searchInput" type="search" placeholder="Поиск по вопросам" aria-label="Поиск по вопросам">
+          <select id="topicFilter" aria-label="Фильтр по теме"><option value="all">Все темы</option></select>
+          <div class="score-panel" id="scorePanel">Верно: 0 / 0</div>
+        </div>
+        <div id="quizList"><article class="quiz-card"><p>Загрузка вопросов…</p></article></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container footer-inner"><p>© 2026 Открытые учебные материалы.</p><a href="../index.html#top">На главную ↑</a></div></footer>
+
+  <script>
+    let questions = [];
+
+    const expectedTopicCounts = {
+      "Ткани": 101,
+      "Нервная система": 46,
+      "Мочеполовая система": 61,
+      "Кроветворение": 44,
+      "Пищеварительная система": 51
+    };
+    const answers = new Map();
+    const quizList = document.getElementById('quizList');
+    const topicFilter = document.getElementById('topicFilter');
+    const searchInput = document.getElementById('searchInput');
+    const scorePanel = document.getElementById('scorePanel');
+    const topicCounts = document.getElementById('topicCounts');
+
+    function validateQuestions(data) {
+      if (!Array.isArray(data)) throw new Error('Файл вопросов имеет неверный формат');
+      if (data.length !== 303) throw new Error(`Ожидалось 303 вопроса, получено ${data.length}`);
+
+      const uniqueQuestions = new Set();
+      const counts = Object.fromEntries(Object.keys(expectedTopicCounts).map(topic => [topic, 0]));
+
+      data.forEach((item, index) => {
+        const number = index + 1;
+        if (!item || typeof item !== 'object') throw new Error(`Вопрос №${number} имеет неверный формат`);
+        if (typeof item.id !== 'string' || !item.id.trim()) throw new Error(`У вопроса №${number} отсутствует id`);
+        if (typeof item.topic !== 'string' || !(item.topic in expectedTopicCounts)) throw new Error(`У вопроса №${number} неизвестная тема`);
+        if (typeof item.question !== 'string' || !item.question.trim()) throw new Error(`У вопроса №${number} отсутствует текст`);
+        if (!Array.isArray(item.options) || item.options.length < 2 || item.options.some(option => typeof option !== 'string' || !option.trim())) {
+          throw new Error(`У вопроса №${number} некорректные варианты ответа`);
+        }
+        if (!Number.isInteger(item.answer) || item.answer < 0 || item.answer >= item.options.length) {
+          throw new Error(`У вопроса №${number} некорректный индекс правильного ответа`);
+        }
+        uniqueQuestions.add(item.question.trim());
+        counts[item.topic] += 1;
+      });
+
+      if (uniqueQuestions.size !== 303) throw new Error(`Ожидалось 303 уникальных вопроса, получено ${uniqueQuestions.size}`);
+
+      Object.entries(expectedTopicCounts).forEach(([topic, expected]) => {
+        if (counts[topic] !== expected) throw new Error(`${topic}: ожидалось ${expected}, получено ${counts[topic]}`);
+      });
+
+      return data;
+    }
+
+    function getTopicCounts() {
+      return questions.reduce((acc, item) => {
+        acc[item.topic] = (acc[item.topic] || 0) + 1;
+        return acc;
+      }, {});
+    }
+
+    function updateScore() {
+      const correct = [...answers.values()].filter(Boolean).length;
+      scorePanel.textContent = `Верно: ${correct} / ${answers.size}`;
+    }
+
+    function renderTopicControls() {
+      const counts = getTopicCounts();
+      topicCounts.innerHTML = '';
+      topicFilter.innerHTML = '<option value="all">Все темы</option>';
+
+      Object.entries(expectedTopicCounts).forEach(([topic, expected]) => {
+        const option = document.createElement('option');
+        option.value = topic;
+        option.textContent = `${topic} (${counts[topic] || 0})`;
+        topicFilter.append(option);
+
+        const badge = document.createElement('li');
+        badge.textContent = `${topic} — ${counts[topic] || 0}`;
+        if ((counts[topic] || 0) !== expected) badge.textContent += ` (ожидалось ${expected})`;
+        topicCounts.append(badge);
+      });
+    }
+
+    function renderQuestions() {
+      const selectedTopic = topicFilter.value;
+      const query = searchInput.value.trim().toLowerCase();
+      quizList.innerHTML = '';
+
+      const visibleQuestions = questions
+        .filter(item => selectedTopic === 'all' || item.topic === selectedTopic)
+        .filter(item => !query || item.question.toLowerCase().includes(query));
+
+      if (!visibleQuestions.length) {
+        quizList.innerHTML = '<article class="quiz-card"><p>По вашему запросу вопросы не найдены.</p></article>';
+        return;
+      }
+
+      visibleQuestions.forEach((item, index) => {
+        const card = document.createElement('article');
+        card.className = 'quiz-card';
+        card.dataset.id = item.id;
+
+        const chosen = answers.has(item.id);
+        const selected = chosen ? item.options.findIndex(option => option === item.selectedOption) : -1;
+        card.innerHTML = `<p class="eyebrow">${item.topic}</p><h3>${index + 1}. ${item.question}</h3><div class="answers"></div><p class="result-text"></p>`;
+
+        const answerBox = card.querySelector('.answers');
+        const resultText = card.querySelector('.result-text');
+
+        item.options.forEach((option, optionIndex) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'answer-button';
+          button.textContent = option;
+
+          if (chosen) {
+            button.disabled = true;
+            if (optionIndex === item.answer) button.classList.add('correct-choice');
+            if (optionIndex === selected && selected !== item.answer) button.classList.add('wrong-choice');
+          }
+
+          button.addEventListener('click', () => {
+            item.selectedOption = option;
+            answers.set(item.id, optionIndex === item.answer);
+            updateScore();
+            renderQuestions();
+          });
+
+          answerBox.append(button);
+        });
+
+        if (chosen) {
+          const isCorrect = answers.get(item.id);
+          resultText.textContent = isCorrect ? 'Верно' : `Неверно. Правильный ответ: ${item.options[item.answer]}`;
+          resultText.className = `result-text ${isCorrect ? 'correct' : 'wrong'}`;
+        }
+
+        quizList.append(card);
+      });
+    }
+
+    async function loadQuestions() {
+      const response = await fetch('./histology_tests_parsed.json');
+      if (!response.ok) throw new Error(`Не удалось загрузить вопросы: HTTP ${response.status}`);
+      questions = validateQuestions(await response.json());
+      renderTopicControls();
+      updateScore();
+      renderQuestions();
+    }
+
+    topicFilter.addEventListener('change', renderQuestions);
+    searchInput.addEventListener('input', renderQuestions);
+    loadQuestions().catch(error => {
+      console.error(error);
+      quizList.innerHTML = `<article class="quiz-card"><h3>Ошибка загрузки теста</h3><p>${error.message}</p></article>`;
+    });
+  </script>
+</body>
+</html>
