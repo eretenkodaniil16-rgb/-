@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Открытая образовательная библиотека</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <meta name="description" content="Бесплатные презентации, видео, методические материалы и задания для студентов." />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#top" aria-label="На главную">
+        <span class="logo-mark">ОМ</span>
+        <span class="logo-text">
+          <strong>Открытые материалы</strong>
+          <small>для студентов-медиков</small>
+        </span>
+      </a>
+
+      <button class="menu-button" id="menuButton" aria-label="Открыть меню">☰</button>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="#materials">Материалы</a>
+        <a href="#video">Видео</a>
+        <a href="#tests">Тесты</a>
+        <a href="#rules">Правила</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Бесплатная учебная библиотека кафедры</p>
+          <h1>Презентации, видео и методички для подготовки студентов</h1>
+          <p class="hero-text">
+            Проект для открытого доступа к проверенным учебным материалам: лекционным презентациям,
+            разбору тем, практическим заданиям и полезным файлам.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#materials">Смотреть материалы</a>
+            <a class="button secondary" href="#submit">Предложить материал</a>
+          </div>
+          <p class="note">
+            Студенты имеют доступ только на просмотр. Редактирование доступно только администраторам проекта.
+          </p>
+        </div>
+
+        <div class="hero-card">
+          <h2>Что уже можно разместить</h2>
+          <ul>
+            <li>Презентации к занятиям и лекциям</li>
+            <li>Короткие видеоразборы сложных тем</li>
+            <li>Методические рекомендации и PDF</li>
+            <li>Тесты для самопроверки</li>
+            <li>Материалы от студентов после модерации</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section stats-section">
+      <div class="container stats">
+        <div>
+          <strong>24</strong>
+          <span>презентации</span>
+        </div>
+        <div>
+          <strong>8</strong>
+          <span>видеолекций</span>
+        </div>
+        <div>
+          <strong>12</strong>
+          <span>методичек</span>
+        </div>
+        <div>
+          <strong>100%</strong>
+          <span>бесплатный доступ</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="materials">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Библиотека</p>
+            <h2>Учебные материалы</h2>
+          </div>
+          <div class="filter-row" role="group" aria-label="Фильтр материалов">
+            <button class="filter active" data-filter="all">Все</button>
+            <button class="filter" data-filter="presentation">Презентации</button>
+            <button class="filter" data-filter="pdf">PDF</button>
+            <button class="filter" data-filter="video">Видео</button>
+          </div>
+        </div>
+
+        <div class="cards-grid" id="materialsGrid">
+          <article class="material-card" data-type="presentation">
+            <span class="tag">Презентация</span>
+            <h3>Общая гистология: эпителиальные ткани</h3>
+            <p>Базовая презентация для практического занятия: классификация, строение, регенерация, клинические примеры.</p>
+            <div class="card-meta">PPTX · 32 слайда · обновлено 2026</div>
+            <a href="#" class="card-link">Открыть материал</a>
+          </article>
+
+          <article class="material-card" data-type="pdf">
+            <span class="tag">Методичка</span>
+            <h3>Алгоритм описания микропрепарата</h3>
+            <p>Краткая схема описания препарата: ткань, окраска, основные структуры, диагностические признаки.</p>
+            <div class="card-meta">PDF · 6 страниц · для печати</div>
+            <a href="#" class="card-link">Открыть PDF</a>
+          </article>
+
+          <article class="material-card" data-type="video">
+            <span class="tag">Видео</span>
+            <h3>Как отличать клетки крови на мазке</h3>
+            <p>Короткий видеоразбор морфологии эритроцитов, лейкоцитов и тромбоцитов с примерами.</p>
+            <div class="card-meta">YouTube · 14 минут · открытый доступ</div>
+            <a href="#" class="card-link">Смотреть видео</a>
+          </article>
+
+          <article class="material-card" data-type="presentation">
+            <span class="tag">Презентация</span>
+            <h3>Нервная ткань: нейроны и нейроглия</h3>
+            <p>Материал по строению нейрона, типам глии, синапсам, миелину и основам нейрогистологии.</p>
+            <div class="card-meta">PPTX · 41 слайд · базовый уровень</div>
+            <a href="#" class="card-link">Открыть материал</a>
+          </article>
+
+          <article class="material-card" data-type="pdf">
+            <span class="tag">PDF</span>
+            <h3>Чек-лист подготовки к практическому занятию</h3>
+            <p>Список тем, терминов и контрольных вопросов для самостоятельной подготовки.</p>
+            <div class="card-meta">PDF · 2 страницы · чек-лист</div>
+            <a href="#" class="card-link">Открыть файл</a>
+          </article>
+
+          <article class="material-card" data-type="video">
+            <span class="tag">Видео</span>
+            <h3>Разбор типовых ошибок на зачёте</h3>
+            <p>Объяснение частых ошибок студентов при описании препаратов и ответах на устные вопросы.</p>
+            <div class="card-meta">Видео · 22 минуты · самоподготовка</div>
+            <a href="#" class="card-link">Смотреть видео</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section muted" id="video">
+      <div class="container two-columns">
+        <div>
+          <p class="eyebrow">Видеораздел</p>
+          <h2>Видеолекции и короткие разборы</h2>
+          <p>
+            Видео лучше хранить на YouTube, VK Video или другом бесплатном видеохостинге,
+            а на сайте размещать встроенный плеер и краткое описание. Так сайт не будет занимать много места.
+          </p>
+        </div>
+        <div class="video-placeholder">
+          <div class="play">▶</div>
+          <p>Место для встроенного видео</p>
+          <small>Например: вводная лекция, разбор микропрепарата или инструкция к занятию</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tests">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Самопроверка</p>
+            <h2>Тесты и задания</h2>
+          </div>
+        </div>
+
+        <div class="test-list">
+          <a href="#" class="test-item">
+            <strong>Тест №1. Эпителиальные ткани</strong>
+            <span>20 вопросов · базовый уровень</span>
+          </a>
+          <a href="#" class="test-item">
+            <strong>Тест №2. Кровь и форменные элементы</strong>
+            <span>25 вопросов · средний уровень</span>
+          </a>
+          <a href="#" class="test-item">
+            <strong>Ситуационные задачи по гистологии</strong>
+            <span>10 задач · повышенная сложность</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section muted" id="rules">
+      <div class="container">
+        <p class="eyebrow">Безопасность доступа</p>
+        <h2>Как устроено редактирование</h2>
+
+        <div class="rules-grid">
+          <div class="rule-card">
+            <h3>Студенты</h3>
+            <p>Могут смотреть сайт, открывать материалы и отправлять предложения через форму. Не имеют прав редактирования.</p>
+          </div>
+          <div class="rule-card">
+            <h3>Редакторы</h3>
+            <p>Вы и научный руководитель можете добавлять новые материалы, менять тексты и обновлять ссылки.</p>
+          </div>
+          <div class="rule-card">
+            <h3>Модерация</h3>
+            <p>Материалы от студентов сначала попадают в форму. На сайт они добавляются только после проверки.</p>
+          </div>
+          <div class="rule-card">
+            <h3>Резерв</h3>
+            <p>Раз в месяц желательно сохранять копию файлов и таблицы со ссылками, чтобы ничего не потерять.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="submit">
+      <div class="container submit-box">
+        <div>
+          <p class="eyebrow">Для студентов</p>
+          <h2>Предложить материал</h2>
+          <p>
+            Если студент хочет предложить презентацию, конспект или полезный файл, он заполняет форму.
+            Доступ к редактированию сайта при этом не выдается.
+          </p>
+        </div>
+        <a class="button primary" href="#">Открыть форму отправки</a>
+      </div>
+    </section>
+
+    <section class="section contacts" id="contacts">
+      <div class="container contacts-inner">
+        <div>
+          <p class="eyebrow">Контакты</p>
+          <h2>Связь с редакцией проекта</h2>
+          <p>По вопросам размещения материалов и исправлений можно написать ответственному редактору.</p>
+        </div>
+        <div class="contact-card">
+          <p><strong>Email:</strong> materials@example.com</p>
+          <p><strong>Ответственный:</strong> ФИО преподавателя / студента-редактора</p>
+          <p><strong>Кафедра:</strong> указать название кафедры</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Открытые учебные материалы. Бесплатный образовательный проект.</p>
+      <a href="#top">Наверх ↑</a>
+    </div>
+  </footer>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>
