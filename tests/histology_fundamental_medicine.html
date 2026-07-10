@@ -12,8 +12,6 @@
     .score-panel{background:rgba(255,253,249,.94);border:1px solid var(--line);border-radius:22px;padding:16px 18px;box-shadow:0 12px 30px rgba(63,35,20,.06);font-weight:900;color:var(--brand2)}
     .topic-counts{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;padding:0;list-style:none}
     .topic-counts li{padding:7px 11px;border-radius:999px;background:var(--soft);color:var(--brand2);font-size:13px;font-weight:900}
-    .quiz-card[data-answered="true"] .answer-note{display:block}
-    .quiz-card .answer-note{display:none}
     .answer-button{width:100%;text-align:left;border:1px solid rgba(122,70,41,.14);border-radius:16px;background:rgba(255,253,249,.75);padding:12px 14px;font:inherit;color:var(--text);cursor:pointer}
     .answer-button:hover:not(:disabled){border-color:var(--brand)}
     .answer-button:disabled{cursor:default}
@@ -45,7 +43,7 @@
       <div class="container">
         <p class="eyebrow">Интерактивная самопроверка</p>
         <h1>Фундаментальная медицина и гистология</h1>
-        <p class="lead">303 вопроса по 5 темам. Выберите ответ, чтобы увидеть результат и пояснение; правильные ответы скрыты до выбора.</p>
+        <p class="lead">303 вопроса по 5 темам. Выберите ответ, чтобы увидеть результат; правильный вариант скрыт до выбора.</p>
         <div class="hero-actions"><a class="button secondary" href="../index.html#tests">Вернуться к списку тестов</a></div>
       </div>
     </section>
@@ -58,7 +56,7 @@
           <select id="topicFilter" aria-label="Фильтр по теме"><option value="all">Все темы</option></select>
           <div class="score-panel" id="scorePanel">Верно: 0 / 0</div>
         </div>
-        <div id="quizList"></div>
+        <div id="quizList"><article class="quiz-card"><p>Загрузка вопросов…</p></article></div>
       </div>
     </section>
   </main>
@@ -68,7 +66,13 @@
   <script>
     let questions = [];
 
-    const expectedTopicCounts = {"Ткани":101,"Нервная система":46,"Мочеполовая система":61,"Кроветворение":44,"Пищеварительная система":51};
+    const expectedTopicCounts = {
+      "Ткани": 101,
+      "Нервная система": 46,
+      "Мочеполовая система": 61,
+      "Кроветворение": 44,
+      "Пищеварительная система": 51
+    };
     const answers = new Map();
     const quizList = document.getElementById('quizList');
     const topicFilter = document.getElementById('topicFilter');
@@ -76,8 +80,43 @@
     const scorePanel = document.getElementById('scorePanel');
     const topicCounts = document.getElementById('topicCounts');
 
+    function validateQuestions(data) {
+      if (!Array.isArray(data)) throw new Error('Файл вопросов имеет неверный формат');
+      if (data.length !== 303) throw new Error(`Ожидалось 303 вопроса, получено ${data.length}`);
+
+      const uniqueQuestions = new Set();
+      const counts = Object.fromEntries(Object.keys(expectedTopicCounts).map(topic => [topic, 0]));
+
+      data.forEach((item, index) => {
+        const number = index + 1;
+        if (!item || typeof item !== 'object') throw new Error(`Вопрос №${number} имеет неверный формат`);
+        if (typeof item.id !== 'string' || !item.id.trim()) throw new Error(`У вопроса №${number} отсутствует id`);
+        if (typeof item.topic !== 'string' || !(item.topic in expectedTopicCounts)) throw new Error(`У вопроса №${number} неизвестная тема`);
+        if (typeof item.question !== 'string' || !item.question.trim()) throw new Error(`У вопроса №${number} отсутствует текст`);
+        if (!Array.isArray(item.options) || item.options.length < 2 || item.options.some(option => typeof option !== 'string' || !option.trim())) {
+          throw new Error(`У вопроса №${number} некорректные варианты ответа`);
+        }
+        if (!Number.isInteger(item.answer) || item.answer < 0 || item.answer >= item.options.length) {
+          throw new Error(`У вопроса №${number} некорректный индекс правильного ответа`);
+        }
+        uniqueQuestions.add(item.question.trim());
+        counts[item.topic] += 1;
+      });
+
+      if (uniqueQuestions.size !== 303) throw new Error(`Ожидалось 303 уникальных вопроса, получено ${uniqueQuestions.size}`);
+
+      Object.entries(expectedTopicCounts).forEach(([topic, expected]) => {
+        if (counts[topic] !== expected) throw new Error(`${topic}: ожидалось ${expected}, получено ${counts[topic]}`);
+      });
+
+      return data;
+    }
+
     function getTopicCounts() {
-      return questions.reduce((acc, item) => { acc[item.topic] = (acc[item.topic] || 0) + 1; return acc; }, {});
+      return questions.reduce((acc, item) => {
+        acc[item.topic] = (acc[item.topic] || 0) + 1;
+        return acc;
+      }, {});
     }
 
     function updateScore() {
@@ -87,11 +126,15 @@
 
     function renderTopicControls() {
       const counts = getTopicCounts();
+      topicCounts.innerHTML = '';
+      topicFilter.innerHTML = '<option value="all">Все темы</option>';
+
       Object.entries(expectedTopicCounts).forEach(([topic, expected]) => {
         const option = document.createElement('option');
         option.value = topic;
         option.textContent = `${topic} (${counts[topic] || 0})`;
         topicFilter.append(option);
+
         const badge = document.createElement('li');
         badge.textContent = `${topic} — ${counts[topic] || 0}`;
         if ((counts[topic] || 0) !== expected) badge.textContent += ` (ожидалось ${expected})`;
@@ -103,50 +146,64 @@
       const selectedTopic = topicFilter.value;
       const query = searchInput.value.trim().toLowerCase();
       quizList.innerHTML = '';
-      questions
+
+      const visibleQuestions = questions
         .filter(item => selectedTopic === 'all' || item.topic === selectedTopic)
-        .filter(item => !query || item.question.toLowerCase().includes(query))
-        .forEach((item, index) => {
-          const card = document.createElement('article');
-          card.className = 'quiz-card';
-          card.dataset.id = item.id;
-          const chosen = answers.has(item.id);
-          card.dataset.answered = chosen ? 'true' : 'false';
-          const selected = chosen ? item.options.findIndex(option => option === item.selectedOption) : -1;
-          card.innerHTML = `<p class="eyebrow">${item.topic}</p><h3>${index + 1}. ${item.question}</h3><div class="answers"></div><p class="result-text"></p><p class="answer-note">${item.explanation}</p>`;
-          const answerBox = card.querySelector('.answers');
-          const resultText = card.querySelector('.result-text');
-          item.options.forEach((option, optionIndex) => {
-            const button = document.createElement('button');
-            button.type = 'button';
-            button.className = 'answer-button';
-            button.textContent = option;
-            if (chosen) {
-              button.disabled = true;
-              if (optionIndex === item.answer) button.classList.add('correct-choice');
-              if (optionIndex === selected && selected !== item.answer) button.classList.add('wrong-choice');
-            }
-            button.addEventListener('click', () => {
-              item.selectedOption = option;
-              answers.set(item.id, optionIndex === item.answer);
-              updateScore();
-              renderQuestions();
-            });
-            answerBox.append(button);
-          });
+        .filter(item => !query || item.question.toLowerCase().includes(query));
+
+      if (!visibleQuestions.length) {
+        quizList.innerHTML = '<article class="quiz-card"><p>По вашему запросу вопросы не найдены.</p></article>';
+        return;
+      }
+
+      visibleQuestions.forEach((item, index) => {
+        const card = document.createElement('article');
+        card.className = 'quiz-card';
+        card.dataset.id = item.id;
+
+        const chosen = answers.has(item.id);
+        const selected = chosen ? item.options.findIndex(option => option === item.selectedOption) : -1;
+        card.innerHTML = `<p class="eyebrow">${item.topic}</p><h3>${index + 1}. ${item.question}</h3><div class="answers"></div><p class="result-text"></p>`;
+
+        const answerBox = card.querySelector('.answers');
+        const resultText = card.querySelector('.result-text');
+
+        item.options.forEach((option, optionIndex) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'answer-button';
+          button.textContent = option;
+
           if (chosen) {
-            const isCorrect = answers.get(item.id);
-            resultText.textContent = isCorrect ? 'Верно' : `Неверно. Правильный ответ: ${item.options[item.answer]}`;
-            resultText.className = `result-text ${isCorrect ? 'correct' : 'wrong'}`;
+            button.disabled = true;
+            if (optionIndex === item.answer) button.classList.add('correct-choice');
+            if (optionIndex === selected && selected !== item.answer) button.classList.add('wrong-choice');
           }
-          quizList.append(card);
+
+          button.addEventListener('click', () => {
+            item.selectedOption = option;
+            answers.set(item.id, optionIndex === item.answer);
+            updateScore();
+            renderQuestions();
+          });
+
+          answerBox.append(button);
         });
+
+        if (chosen) {
+          const isCorrect = answers.get(item.id);
+          resultText.textContent = isCorrect ? 'Верно' : `Неверно. Правильный ответ: ${item.options[item.answer]}`;
+          resultText.className = `result-text ${isCorrect ? 'correct' : 'wrong'}`;
+        }
+
+        quizList.append(card);
+      });
     }
 
     async function loadQuestions() {
       const response = await fetch('./histology_tests_parsed.json');
-      if (!response.ok) throw new Error('Не удалось загрузить вопросы');
-      questions = await response.json();
+      if (!response.ok) throw new Error(`Не удалось загрузить вопросы: HTTP ${response.status}`);
+      questions = validateQuestions(await response.json());
       renderTopicControls();
       updateScore();
       renderQuestions();
@@ -155,6 +212,7 @@
     topicFilter.addEventListener('change', renderQuestions);
     searchInput.addEventListener('input', renderQuestions);
     loadQuestions().catch(error => {
+      console.error(error);
       quizList.innerHTML = `<article class="quiz-card"><h3>Ошибка загрузки теста</h3><p>${error.message}</p></article>`;
     });
   </script>
