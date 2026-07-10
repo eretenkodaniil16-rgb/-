@@ -1,18 +1,16 @@
-
-
 <!doctype html>
 <html lang="ru">
-<head>
+<голова>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Открытые учебные материалы</title>
-  <meta name="description" content="Бесплатные презентации, видео, методички и тесты для студентов.">
+  <title>Музыка
+  <meta name="description" content="Р'РµСЃРїР»Р°С‚РЅС‹Рµ РїСЂРµР·РµРЅС‚Р°С†РёРё, РІРёРґРµРѕ, РјРµС‚РѕРґРёС‡Рё Рё С‚РµСЃС‚С‹ НУ СЃС‚СѓРґРµРЅС‚РѕРІ.">
   <style>
-    :root{
+    :корень{
       --bg:#f7f2e9;
       --bg2:#efe1d2;
       --card:#fffdf9;
-      --text:#241914;
+      --текст:#241914;
       --muted:#75655c;
       --brand:#7a4629;
       --brand2:#4b2717;
@@ -26,31 +24,32 @@
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{
+    тело{
       margin:0;
       font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-      background:
-        radial-gradient(circle at 8% 0%, rgba(183,129,85,.23), transparent 32rem),
-        radial-gradient(circle at 90% 10%, rgba(122,70,41,.15), transparent 35rem),
-        linear-gradient(180deg,var(--bg),#fbf7f0 46%,var(--bg));
+      фон:
+        radial-gradient(circle at 8 % 0%, rgba(183,129,85,.23), transparent 32rem),
+        radial-gradient(circle at 90 % 10%, rgba(122,70,41,.15), transparent 35rem),
+        линейный градиент(180 градусов,var(--bg),#fbf7f0 46%,var(--bg));
       color:var(--text);
       line-height:1.6;
     }
 
+    body.modal-open{overflow:hidden}
     a{color:inherit}
     .container{width:min(1160px,calc(100% - 32px));margin:auto}
 
     .site-header{
       position:sticky;
       top:0;
-      z-index:50;
+      z-индекс: 50;
       background:rgba(247,242,233,.88);
       backdrop-filter:blur(18px);
       border-bottom:1px solid rgba(122,70,41,.15);
     }
 
     .header-inner{
-      min-height:76px;
+      минимальная высота: 76 пикселей;
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -66,17 +65,16 @@
     }
 
     .logo-mark{
-      width:48px;
-      height:48px;
+      ширина: 48 пикселей;
+      высота: 48 пикселей;
       flex:0 0 48px;
       border-radius:16px;
       display:grid;
       place-items:center;
-      color:#fff;
+      цвет:#fff;
       font-weight:900;
       letter-spacing:-.04em;
-      background:
-        linear-gradient(135deg,var(--brand),var(--brand2));
+      фон: линейный градиент (135 градусов, вар (--бренд), вар (--бренд2));
       box-shadow:0 12px 28px rgba(122,70,41,.26);
     }
 
@@ -104,24 +102,22 @@
     }
 
     .main-nav a:hover{
-      color:#fff;
+      цвет:#fff;
       background:var(--brand);
     }
 
     .menu-button{
       display:none;
-      border:0;
+      граница:0;
       background:var(--brand);
-      color:#fff;
+      цвет:#fff;
       border-radius:14px;
-      width:46px;
-      height:46px;
+      ширина: 46 пикселей;
+      высота: 46 пикселей;
       font-size:24px;
     }
 
-    .hero{
-      padding:92px 0 56px;
-    }
+    .hero{padding:92px 0 56px}
 
     .hero-grid{
       display:grid;
@@ -130,11 +126,11 @@
       align-items:center;
     }
 
-    .eyebrow{
+    .бровь{
       margin:0 0 12px;
       color:var(--brand);
       text-transform:uppercase;
-      letter-spacing:.13em;
+      letter-spaceing:.13em;
       font-size:12px;
       font-weight:900;
     }
@@ -153,7 +149,7 @@
       margin-bottom:16px;
       font-size:clamp(28px,4vw,46px);
       line-height:1.04;
-      letter-spacing:-.045em;
+      letter-pacing:-.045em;
     }
 
     h3{
@@ -163,7 +159,7 @@
       letter-spacing:-.02em;
     }
 
-    .lead{
+    .вести{
       max-width:720px;
       color:var(--muted);
       font-size:20px;
@@ -176,7 +172,7 @@
       margin:32px 0 18px;
     }
 
-    .button{
+    .кнопка{
       min-height:50px;
       display:inline-flex;
       align-items:center;
@@ -187,11 +183,12 @@
       text-decoration:none;
       font-weight:850;
       border:1px solid transparent;
+      курсор:указатель;
     }
 
     .button.primary{
-      background:linear-gradient(135deg,var(--brand),var(--brand2));
-      color:#fff;
+      фон: линейный градиент (135 градусов, вар (--бренд), вар (--бренд2));
+      цвет:#fff;
       box-shadow:0 14px 28px rgba(122,70,41,.24);
     }
 
@@ -201,14 +198,14 @@
       border-color:var(--brand);
     }
 
-    .note{
+    .примечание{
       max-width:620px;
       color:var(--muted);
       font-size:14px;
     }
 
     .hero-card{
-      position:relative;
+      положение: относительное;
       overflow:hidden;
       background:rgba(255,253,249,.82);
       border:1px solid var(--line);
@@ -218,10 +215,10 @@
     }
 
     .hero-card:before{
-      content:"";
-      position:absolute;
-      width:180px;
-      height:180px;
+      содержание:"";
+      позиция: абсолютная;
+      ширина: 180 пикселей;
+      высота: 180 пикселей;
       right:-60px;
       top:-60px;
       border-radius:50%;
@@ -289,20 +286,20 @@
       gap:10px;
     }
 
-    .filter{
+    .фильтр{
       border:1px solid var(--line);
       background:rgba(255,253,249,.78);
       color:var(--muted);
       border-radius:999px;
       padding:9px 14px;
       font-weight:800;
-      cursor:pointer;
+      курсор:указатель;
     }
 
     .filter.active,.filter:hover{
       background:var(--brand);
       border-color:var(--brand);
-      color:#fff;
+      цвет:#fff;
     }
 
     .cards-grid{
@@ -312,7 +309,7 @@
     }
 
     .material-card{
-      min-height:284px;
+      минимальная высота: 284 пикселя;
       display:flex;
       flex-direction:column;
       background:rgba(255,253,249,.93);
@@ -323,13 +320,19 @@
       transition:.18s transform,.18s box-shadow,.18s border-color;
     }
 
+    .material-card.featured{
+      фон:
+        linear-gradient(135deg,rgba(255,253,249,.98),rgba(234,212,192,.42));
+      border-color:rgba(122,70,41,.32);
+    }
+
     .material-card:hover{
       transform:translateY(-3px);
       box-shadow:0 18px 46px rgba(63,35,20,.12);
       border-color:rgba(122,70,41,.38);
     }
 
-    .tag{
+    .ярлык{
       align-self:flex-start;
       margin-bottom:15px;
       padding:5px 10px;
@@ -338,6 +341,11 @@
       color:var(--brand2);
       font-size:12px;
       font-weight:900;
+    }
+
+    .tag.green{
+      background:rgba(47,111,83,.14);
+      color:var(--green);
     }
 
     .material-card p{
@@ -360,9 +368,24 @@
       font-weight:900;
     }
 
-    .card-link:hover{text-decoration:underline}
+    .download-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-top:16px;
+      min-height:44px;
+      padding:0 18px;
+      border-radius:999px;
+      background:var(--green);
+      цвет:#fff;
+      text-decoration:none;
+      font-weight:900;
+      align-self:flex-start;
+    }
 
-    .two-columns{
+    .card-link:hover,.download-link:hover{text-decoration:underline}
+
+    .двухколоночный{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:34px;
@@ -371,10 +394,10 @@
 
     .video-placeholder{
       min-height:300px;
-      background:
-        radial-gradient(circle at 25% 15%,rgba(255,255,255,.14),transparent 12rem),
-        linear-gradient(135deg,var(--brand2),#2d1810);
-      color:#fff;
+      фон:
+        radial-gradient(circle at 25 % 15%,rgba(255,255,255,.14),transparent 12rem),
+        линейный градиент (135 градусов, вар (--brand2), # 2d1810);
+      цвет:#fff;
       border-radius:34px;
       display:grid;
       place-items:center;
@@ -383,14 +406,14 @@
       box-shadow:var(--shadow);
     }
 
-    .play{
-      width:78px;
-      height:78px;
+    .играть{
+      ширина:78px;
+      высота: 78 пикселей;
       margin:0 auto 14px;
       display:grid;
       place-items:center;
       border-radius:50%;
-      background:#fff;
+      фон:#fff;
       color:var(--brand2);
       font-size:28px;
       box-shadow:0 16px 32px rgba(0,0,0,.18);
@@ -432,8 +455,8 @@
     }
 
     .rule-icon{
-      width:42px;
-      height:42px;
+      ширина: 42 пикселя;
+      высота: 42 пикселя;
       display:grid;
       place-items:center;
       border-radius:14px;
@@ -455,8 +478,7 @@
       gap:28px;
       padding:34px;
       border-radius:34px;
-      background:
-        linear-gradient(135deg,rgba(255,253,249,.95),rgba(255,253,249,.78));
+      background:linear-gradient(135deg,rgba(255,253,249,.95),rgba(255,253,249,.78));
       border:1px solid var(--line);
       box-shadow:var(--shadow);
     }
@@ -484,9 +506,73 @@
 
     .contact-card p:last-child{margin-bottom:0}
 
-    footer{
+    .modal{
+      положение: фиксированное;
+      вставка:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-индекс:100;
+      background:rgba(32,21,15,.58);
+      backdrop-filter:blur(8px);
+    }
+
+    .modal.open{display:flex}
+
+    .modal-card{
+      ширина:мин.(520px,100%);
+      max-height:92vh;
+      overflow:auto;
+      положение: относительное;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:22px;
+      box-shadow:0 32px 90px rgba(0,0,0,.34);
+      text-align:center;
+    }
+
+    .modal-close{
+      позиция: абсолютная;
+      справа:14 пикселей;
+      top:14px;
+      ширина: 42 пикселя;
+      высота: 42 пикселя;
+      граница:0;
+      border-radius:50%;
+      background:var(--soft);
+      color:var(--brand2);
+      font-size:24px;
+      line-height:1;
+      курсор:указатель;
+    }
+
+    .modal-photo{
+      ширина:100%;
+      max-height:420px;
+      object-fit:cover;
+      object-position:center top;
+      border-radius:22px;
+      margin-bottom:18px;
+      border:1px solid var(--line);
+      background:#eee;
+    }
+
+    .modal-card h2{
+      font-size:28px;
+      letter-pacing:-.035em;
+      margin-bottom:8px;
+    }
+
+    .modal-card p{
+      color:var(--muted);
+      margin-bottom:0;
+    }
+
+    нижний колонтитул
       padding:28px 0;
-      border-top:1px solid var(--line);
+      border-top:1px Solid var(--line);
       color:var(--muted);
     }
 
@@ -521,9 +607,9 @@
 
       .main-nav{
         display:none;
-        position:absolute;
-        left:16px;
-        right:16px;
+        позиция: абсолютная;
+        слева: 16 пикселей;
+        справа:16 пикселей;
         top:72px;
         border-radius:22px;
         padding:12px;
@@ -543,29 +629,31 @@
       .stats,.cards-grid,.rules-grid{grid-template-columns:1fr}
       .section{padding:52px 0}
       .test-item,.submit-box,.footer-inner{flex-direction:column;align-items:flex-start}
+      .modal-card{padding:18px}
+      .modal-photo{max-height:360px}
     }
   </style>
 </head>
 
-<body>
+<тело>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="logo" href="#top" aria-label="На главную">
-        <span class="logo-mark">ОМ</span>
+      <a class="logo" href="#top" aria-label="РќР° РіР»Р°РЅСѓСЋ">
+        <span class="logo-mark">РћРњ</span>
         <span class="logo-text">
-          <strong>Открытые материалы</strong>
-          <small>для студентов-медиков</small>
+          <strong>Получить информацию</strong>
+          <small>Полный-помощник</small>
         </span>
       </a>
 
-      <button class="menu-button" id="menuButton" aria-label="Открыть меню">☰</button>
+      <button class="menu-button" id="menuButton" aria-label="РћС‚РєСЂС‹С‚СЊ РјРµРЅСЋ">в˜°</button>
 
       <nav class="main-nav" id="mainNav">
-        <a href="#materials">Материалы</a>
-        <a href="#video">Видео</a>
-        <a href="#tests">Тесты</a>
-        <a href="#rules">Доступ</a>
-        <a href="#contacts">Контакты</a>
+        <a href="#materials">Обзор</a>
+        <a href="#video">Новости</a>
+        <a href="#tests">РўРµСЃС‚С‹</a>
+        <a href="#rules">Дополнительно</a>
+        <a href="#contacts">Новости</a>
       </nav>
     </div>
   </header>
@@ -574,29 +662,29 @@
     <section class="hero">
       <div class="container hero-grid">
         <div>
-          <p class="eyebrow">Бесплатная учебная библиотека кафедры</p>
-          <h1>Презентации, видео и методички для подготовки студентов</h1>
+          <p class="eyebrow">Р'РμСЃРїР»Р°С‚РЅР°СЏ СѓС‡Р±РЅР°СЏ Р±РёР±Р»РёРѕС‚РμРєР°С™Р°С™РґСЂС‹</p>
+          <h1>РџСЂРµР·РµРЅС‚Р°С†РёРё, РІРёРґРµРѕ Нё РјРµС‚РѕРґРёС‡РєРё РїРѕРґРіРѕС‚РѕРІРєРё СЃС‚СѓРґРµРЅС‚РѕРІ</h1>
           <p class="lead">
-            Открытый проект для публикации проверенных учебных материалов:
-            лекционных презентаций, видеоразборов, практических заданий и полезных файлов.
+            РћС‚РєСЂС‹С‚С‹Р№ РїСЂРѕРµРєС‚ НґР»СЏ РїСѓР±Р»РёРєР°С†РёРё РїСЂРѕРІРµСЂμРЅРЅС‹С… Вот пример:
+            Р»РµРєС†РёРѕРЅРЅС‹С… РїСЂРµР·РµРЅС‚Р°С†РёР№, РІРёРґРѕСЂР°Р±РѕСЂРѕРІ, РїСЂР°РєС‚РёС‡РµСЃРєРёС… Нё РїРѕР»РµР·РЅС‹С… Р°Р№Р»РѕРІ.
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="#materials">Смотреть материалы</a>
-            <a class="button secondary" href="#submit">Предложить материал</a>
+            <a class="button Primary" href="#materials">Сервис</a>
+            <a class="button Secondary" href="#submit">Добавить ссылку»</a>
           </div>
           <p class="note">
-            Студенты получают доступ только на просмотр. Редактирование доступно только администраторам проекта.
+            РЎС‚СѓХРµРЅС‚С‹ РїРѕР»СѓС‡Р°СЋС‚ РґРѕСЃС‚СѓРї С‚РѕР»СЊРєРѕ РЅР° РїСЂРѕСЃРјРѕС‚СЂ. Р^РґР°РєС‚РёСЂРѕРІР°РЅРёРµ РґРѕСЃС‚СѓРїРЅРѕ С‚РѕР»СЊРєРѕ Р°РґРјРЅРёСЃС‚СЂР°С‚РѕСЂР°РїСЂРѕРµРєС‚Р°.
           </p>
         </div>
 
         <div class="hero-card">
-          <h2>Что уже можно разместить</h2>
+          <h2>Персонажи сцен </h2>
           <ul>
-            <li>Презентации к занятиям и лекциям</li>
-            <li>Короткие видеоразборы сложных тем</li>
-            <li>Методические рекомендации и PDF</li>
-            <li>Тесты для самопроверки</li>
-            <li>Материалы от студентов после модерации</li>
+            <li>РџСЂРµР·РμРЅС‚Р°С†РёРё Рє Р°РЅСЏС‚РёСЏРј Нё Р»РµРєС†РёСЏј</li>
+            <li>РљРѕСЂРѕС‚РєРёРµ РІРёРґРµРѕСЂР°Р·Н±РѕСЂС‹ СЃР»РѕР¶РЅС‹С… С‚РµРј</li>
+            <li>Полный доступ к PDF</li>
+            <li>РўРµСЃС‚С‹ НГС</li>
+            <li>Полный доступ к информации</li>
           </ul>
         </div>
       </div>
@@ -606,19 +694,19 @@
       <div class="container stats">
         <div class="stat">
           <strong>24</strong>
-          <span>презентации</span>
+          <span>Получить</span>
         </div>
         <div class="stat">
           <strong>8</strong>
-          <span>видеолекций</span>
+          <span>Новости</span>
         </div>
         <div class="stat">
-          <strong>12</strong>
-          <span>методичек</span>
+          <strong>13</strong>
+          <span>Уровень</span>
         </div>
         <div class="stat">
-          <strong>0 ₽</strong>
-          <span>стоимость доступа</span>
+          <strong>0 в‚Ѕ</strong>
+          <span>Совместное использование</span>
         </div>
       </div>
     </section>
@@ -627,211 +715,51 @@
       <div class="container">
         <div class="section-head">
           <div>
-            <p class="eyebrow">Библиотека</p>
-            <h2>Учебные материалы</h2>
+            <p class="eyebrow">Нет</p>
+            <h2>Нет</h2>
           </div>
-          <div class="filter-row" role="group" aria-label="Фильтр материалов">
-            <button class="filter active" data-filter="all">Все</button>
-            <button class="filter" data-filter="presentation">Презентации</button>
+          <div class="filter-row" role="group" aria-label="Р¤РёР»СЊС‚СЂ РјР°С‚РµСЂР°Р»РІ»>
+            <button class="filter active" data-filter="all">Р'СЃРµ</button>
+            <button class="filter" data-filter="presentation">Добавить</button>
             <button class="filter" data-filter="pdf">PDF</button>
-            <button class="filter" data-filter="video">Видео</button>
+            <button class="filter" data-filter="video">Р'РёРґРµРѕ</button>
           </div>
         </div>
 
         <div class="cards-grid" id="materialsGrid">
-          <article class="material-card" data-type="presentation">
-            <span class="tag">Презентация</span>
-            <h3>Общая гистология: эпителиальные ткани</h3>
-            <p>Классификация, строение, регенерация, клинические примеры и контрольные вопросы.</p>
-            <div class="card-meta">PPTX · 32 слайда · базовый уровень</div>
-            <a href="#" class="card-link">Открыть материал</a>
-          </article>
-
-          <article class="material-card" data-type="pdf">
-            <span class="tag">Методичка</span>
-            <h3>Алгоритм описания микропрепарата</h3>
-            <p>Краткая схема: ткань, окраска, основные структуры, диагностические признаки.</p>
-            <div class="card-meta">PDF · 6 страниц · для печати</div>
-            <a href="#" class="card-link">Открыть PDF</a>
-          </article>
-
-          <article class="material-card" data-type="video">
-            <span class="tag">Видео</span>
-            <h3>Как отличать клетки крови на мазке</h3>
-            <p>Короткий видеоразбор морфологии эритроцитов, лейкоцитов и тромбоцитов.</p>
-            <div class="card-meta">Видео · 14 минут · самоподготовка</div>
-            <a href="#" class="card-link">Смотреть видео</a>
+          <article class="material-card featured" data-type="pdf">
+            <span class="tag green">Показать список</span>
+            <h3>РјР±СЂРёРѕР»РѕРіРёСЏ: СЂР°РЅРЅРµРµ РІРЅСѓС‚СЂРѕР±РЅРѕРµ СЂР°Р·РІРёС‚Рё С‡РµРѕРІРµР°</h3>
+            <p>Перспективы развития событий С†РёС‚РѕР»РѕРіРёРё Её СЌРјР±СЂРёРѕР»РѕРіРёРё ХР»СЏ РїСЂР°РєС‚РёС‡РµСЃРєРёС… Ё СЃР°РѕСЃС‚РѕСЏС‚РµР»СЊРЅС‹С… Р·Р°РЅСЏС‚РёР№.</p>
+            <div class="card-meta">PDF · 19 страниц · Рыцарь</div>
+            <a href="embryology_methodichka.pdf" class="download-link" download>Сведения</a>
           </article>
 
           <article class="material-card" data-type="presentation">
-            <span class="tag">Презентация</span>
-            <h3>Нервная ткань: нейроны и нейроглия</h3>
-            <p>Нейроны, синапсы, миелин, астроциты, олигодендроциты и микроглия.</p>
-            <div class="card-meta">PPTX · 41 слайд · базовый уровень</div>
-            <a href="#" class="card-link">Открыть материал</a>
+            <span class="tag">Оборудование</span>
+            <h3>РћР±С‰Р°СЏ РіРёСЃС‚РѕР»РѕРіРёСЏ: СЌРїРёС‚РµР»РёР°Р»СЊРЅС‹Рµ С‚РєР°РЅРё</h3>
+            <p>РљР»СЃСЃРёС„РёРєР°С†РёСЏ, СЃС‚СЂРѕРµРЅРёРµ, СЂРµРіРµРЅРµСЂР°С†РёСЏ, РєР”РёРЅРёС‡МкСЃРєРёСЏ РїСЂРёРјРµСЂС‹ Нё РєРѕРЅС‚СЂРѕР»СЊРЅС‹РІРѕРїСЂРѕСЃС‹.</p>
+            <div class="card-meta">PPTX · 32 числа · Количество карт</div>
+            <a href="#" class="card-link js-placeholder">Добавить информацию»</a>
           </article>
 
           <article class="material-card" data-type="pdf">
-            <span class="tag">Чек-лист</span>
-            <h3>Подготовка к практическому занятию</h3>
-            <p>Список терминов, вопросов и структур, которые студент должен знать перед занятием.</p>
-            <div class="card-meta">PDF · 2 страницы · чек-лист</div>
-            <a href="#" class="card-link">Открыть файл</a>
+            <span class="tag">Обзор</span>
+            <h3>РђР»РіРѕСЂРёС‚Рј РѕРїРёСЃР°РЅРёСЏ РјРёРєСЂРѕРїСЂРµР°СЂР°С‚Р°</h3>
+            <p>РљСЂР°С‚РєР°СЏ СЃС…РµРјР°: С‚РєР°РЅСЊ, РѕРєСЂР°СЃРєР°, РѕСЃРЅРѕРІРЅС‹Рµ СЃС‚СЂСѓРєС‚СѓСЂС‹, РґРёР°РіРЅРѕСЃС‚РёС‡МцСЃРєРёРїСЂРёР·РЅР°РєРё.</p>
+            <div class="card-meta">PDF · 6 страниц · Документы</div>
+            <a href="#" class="card-link js-placeholder">Открыть PDF</a>
           </article>
 
           <article class="material-card" data-type="video">
-            <span class="tag">Видео</span>
-            <h3>Разбор типовых ошибок на зачёте</h3>
-            <p>Частые ошибки студентов при описании препаратов и ответах на устные вопросы.</p>
-            <div class="card-meta">Видео · 22 минуты · самоподготовка</div>
-            <a href="#" class="card-link">Смотреть видео</a>
+            <span class="tag">Нет</span>
+            <h3>РљР°Рє РѕС‚Р»РёС‡Р°С‚СЊ РєР»МцС‚РєРё РєСЂРѕРІРё РјР°Р·РєРμ</h3>
+            <p>РљРѕСЂРѕС‚РєРёР№ РІРёРґРµРѕСЂР°Р·Р±РѕСЂ РјРѕСЂС™РѕРіРёРё СЌСЂРёС‚СЂРѕС†РёС‚РѕРІ, Р»РµР№РѕС†РёС‚РѕРІ ё С‚СЂРѕРјР±РѕС†РёС‚РѕРІ.</p>
+            <div class="card-meta">В· 14 карточек в · 14 карточек</div>
+            <a href="#" class="card-link js-placeholder">Ссылка</a>
           </article>
-        </div>
-      </div>
-    </section>
 
-    <section class="section muted-section" id="video">
-      <div class="container two-columns">
-        <div>
-          <p class="eyebrow">Видеораздел</p>
-          <h2>Видеолекции и короткие разборы</h2>
-          <p style="color:var(--muted)">
-            Видео лучше хранить на YouTube, VK Video или другом бесплатном видеохостинге,
-            а на сайте размещать встроенный плеер и краткое описание. Так сайт не будет быстро занимать место.
-          </p>
-        </div>
-        <div class="video-placeholder">
-          <div>
-            <div class="play">▶</div>
-            <p>Место для встроенного видео</p>
-            <small>Например: вводная лекция, разбор микропрепарата или инструкция к занятию</small>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="tests">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">Самопроверка</p>
-            <h2>Тесты и задания</h2>
-          </div>
-          <p>Тесты можно вести через Google Forms или Яндекс Формы, а на сайте оставлять кнопки перехода.</p>
-        </div>
-
-        <div class="test-list">
-          <a href="#" class="test-item">
-            <strong>Тест №1. Эпителиальные ткани</strong>
-            <span>20 вопросов · базовый уровень</span>
-          </a>
-          <a href="#" class="test-item">
-            <strong>Тест №2. Кровь и форменные элементы</strong>
-            <span>25 вопросов · средний уровень</span>
-          </a>
-          <a href="#" class="test-item">
-            <strong>Ситуационные задачи по гистологии</strong>
-            <span>10 задач · повышенная сложность</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section muted-section" id="rules">
-      <div class="container">
-        <p class="eyebrow">Безопасность доступа</p>
-        <h2>Как устроено редактирование</h2>
-
-        <div class="rules-grid">
-          <div class="rule-card">
-            <div class="rule-icon">1</div>
-            <h3>Студенты</h3>
-            <p>Могут смотреть сайт, открывать материалы и отправлять предложения через форму. Не имеют прав редактирования.</p>
-          </div>
-          <div class="rule-card">
-            <div class="rule-icon">2</div>
-            <h3>Редакторы</h3>
-            <p>Вы и научный руководитель можете добавлять новые материалы, менять тексты и обновлять ссылки.</p>
-          </div>
-          <div class="rule-card">
-            <div class="rule-icon">3</div>
-            <h3>Модерация</h3>
-            <p>Материалы от студентов сначала попадают в форму. На сайт они добавляются только после проверки.</p>
-          </div>
-          <div class="rule-card">
-            <div class="rule-icon">4</div>
-            <h3>Резерв</h3>
-            <p>Раз в месяц желательно сохранять копию файлов и таблицы со ссылками, чтобы ничего не потерять.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="submit">
-      <div class="container submit-box">
-        <div>
-          <p class="eyebrow">Для студентов</p>
-          <h2>Предложить материал</h2>
-          <p>
-            Если студент хочет предложить презентацию, конспект или полезный файл, он заполняет форму.
-            Доступ к редактированию сайта при этом не выдается.
-          </p>
-        </div>
-        <a class="button primary" href="#">Открыть форму отправки</a>
-      </div>
-    </section>
-
-    <section class="section" id="contacts">
-      <div class="container contacts-inner">
-        <div>
-          <p class="eyebrow">Контакты</p>
-          <h2>Связь с редакцией проекта</h2>
-          <p style="color:var(--muted)">По вопросам размещения материалов и исправлений можно написать ответственному редактору.</p>
-        </div>
-        <div class="contact-card">
-          <p><strong>Email:</strong> materials@example.com</p>
-          <p><strong>Ответственный:</strong> ФИО преподавателя / студента-редактора</p>
-          <p><strong>Кафедра:</strong> указать название кафедры</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container footer-inner">
-      <p>© 2026 Открытые учебные материалы. Бесплатный образовательный проект.</p>
-      <a href="#top">Наверх ↑</a>
-    </div>
-  </footer>
-
-  <script>
-    const menuButton = document.getElementById("menuButton");
-    const mainNav = document.getElementById("mainNav");
-
-    menuButton.addEventListener("click", () => {
-      mainNav.classList.toggle("open");
-    });
-
-    document.querySelectorAll(".main-nav a").forEach((link) => {
-      link.addEventListener("click", () => mainNav.classList.remove("open"));
-    });
-
-    const filters = document.querySelectorAll(".filter");
-    const cards = document.querySelectorAll(".material-card");
-
-    filters.forEach((button) => {
-      button.addEventListener("click", () => {
-        filters.forEach((item) => item.classList.remove("active"));
-        button.classList.add("active");
-
-        const selected = button.dataset.filter;
-
-        cards.forEach((card) => {
-          const shouldShow = selected === "all" || card.dataset.type === selected;
-          card.style.display = shouldShow ? "flex" : "none";
-        });
-      });
-    });
-  </script>
-</body>
-</html>
+          <article class="material-card" data-type="presentation">
+            <span class="tag">Оборудование</span>
+            <h3>РќРμСЂРІРЅР°СЏ С‚РєР°РЅСЊ: РЅРµР№СЂРѕРЅС‹ Нё РЅРµР№СЂРѕРіР»РёСЏ</h3>
+            <p>РќРμР№СЂРѕРЅС‹, СЃРёРЅР°С
